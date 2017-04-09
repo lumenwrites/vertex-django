@@ -30,21 +30,6 @@ export default class Post extends Component {
 	}
     }
 
-    renderPostEdit () {
-	if (this.props.authenticated ) {
-	    /* If user is autheticated - show him the edit button. */
-	    return (
-		<Link to={"/post/"+this.props.slug+"/edit"}>
-		    <FontAwesome name='pencil' className="button-edit" />
-		</Link>
-	    );
-	} else {
-	    return (
-		null
-	    );
-	}
-    }
-
     renderDraftLabel () {
 	if (!this.props.published ) {
 	    /* Show "Draft" label on non-published posts */
@@ -95,8 +80,6 @@ export default class Post extends Component {
 
     renderFooter () {
 	const { tags, category } = this.props;
-	/* If there's no tags and no category - return empy div */
-	if (!(tags && tags.length > 0 || category)){ return (<div></div>); }
 
 	var tagItems = "";
 	var categoryItem = "";
@@ -137,9 +120,32 @@ export default class Post extends Component {
 		{ tagItems }
 		<div className="right">
 		    <Link className="black" to={'http://rayalez.com'} >
-			@rayalez
+			@lumenwrites
 		    </Link>
+		    {/*  
+		    <span className="icon">
+			<i className="fa fa-retweet"></i> 3
+		    </span>
+
+		    <Link to={this.props.link} className="icon">
+			<i className="fi-comment"></i> 12
+		    </Link>
+		    <span className="icon">
+			<i className="fi-arrow-up"></i> 3
+		    </span>
+		      */}
+		    { !this.props.published  && false ?
+		      <Label bsStyle="default" className="label-draft">
+			  Draft
+		      </Label>
+		      : null }		    
+		    { this.props.authenticated && false ?
+		      <Link to={"/post/"+this.props.slug+"/edit"} className="icon">
+			  <i className="fa fa-pencil"></i>
+		      </Link>
+		      : null }
 		</div>
+		<div className="clearfix"></div>
 	    </div>
 	);
     }
@@ -148,11 +154,6 @@ export default class Post extends Component {
 	return (
 	    <div>
 		<article className="post panel panel-default">
-		    {this.renderPostEdit()}
-		    {this.renderDraftLabel()}
-		    {this.renderPostHeader()}
-		    <hr/>
-
 		    <div>
 			{this.renderBody()}
 			

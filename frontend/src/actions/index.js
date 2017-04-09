@@ -11,7 +11,23 @@ export const FETCH_SETTINGS = 'FETCH_SETTINGS';
 export const CREATE_SUBSCRIBER = 'CREATE_SUBSCRIBER';
 
 const host = window.location.host.split(':')[0];
-export const ROOT_URL = 'http://api.' + host + '/api/v1';
+export const ROOT_URL = 'http://' + host + ':8000/api/v1';
+
+
+export function updatePostBody(value) {
+    return {
+	type: 'UPDATE_POST_BODY',
+	payload: value
+    }
+}
+
+export function updatePostTags(value) {
+    return {
+	type: 'UPDATE_POST_TAGS',
+	payload: value
+    }
+}
+
 
 export function fetchPosts(filter) {
     var posts_url = `${ROOT_URL}/posts/`;
@@ -34,11 +50,9 @@ export function fetchPosts(filter) {
     return function(dispatch) {
 	axios.get(url)
 	     .then(response => {
-		 /* console.log(">>>> src/actions/index.js (promise):");*/
-		 /* console.log("Successfully fetched posts.Dispatching action FETCH_POSTS");*/
 		 dispatch({
-		     type: FETCH_POSTS,
-		     payload: response
+		     type: 'FETCH_POSTS',
+		     payload: response.data
 		 });
 	     });
     };
@@ -63,20 +77,20 @@ export function fetchPost(slug) {
 }
 
 
-export function createPost(props) {
+export function createPost(post) {
     // Get the saved token from local storage
     const config = {
 	headers:  { authorization: 'Token ' + localStorage.getItem('token')}
     };
 
     return function(dispatch) {
-	axios.post(`${ROOT_URL}/post/new`, props, config)
+	axios.post(`${ROOT_URL}/post/new`, post, config)
 	     .then(response => {
 		 browserHistory.push('/');
 		 /* console.log(response);*/
 		 dispatch({
-		     type: CREATE_POST,
-		     payload: response
+		     type: 'CREATE_POST',
+		     payload: post
 		 });
 	     });
     }

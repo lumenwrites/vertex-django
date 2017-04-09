@@ -3,12 +3,25 @@ import { FETCH_POSTS, FETCH_POST } from '../actions/index';
 /* List of all posts and an active post  */
 const INITIAL_STATE = {
     all: [],
-    post: null
+    post: null,
+    postForm: {
+	body: "",
+	published: true,
+	tags: "",
+	category: ""
+    }
 };
 
 export default function(state=INITIAL_STATE, action) {
     switch(action.type) {
-	case FETCH_POST:
+	case 'UPDATE_POST_FORM':
+	    return {...state,
+		    postForm: {
+			...state.postForm,
+			body: action.payload
+		    }
+	    };
+	case 'FETCH_POST':
 	    return {...state, post: action.payload.data };
 	case FETCH_POSTS:
 	    /* Action returns a list of posts */

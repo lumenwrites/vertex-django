@@ -27,7 +27,7 @@ function getPlugins() {
 }
 
 
-
+/* 	'./src/index.js' */
 module.exports = {
     entry: [
 	'./src/index.js'

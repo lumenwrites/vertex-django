@@ -14,6 +14,8 @@ import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap';
 import LogoImage from '../../img/digitalmind-logo.png'
 import SubscribeForm from './SubscribeForm';
 
+import FontAwesome from 'react-fontawesome';
+
 class Header extends Component {
     constructor(props){
 	super(props);
@@ -97,41 +99,6 @@ class Header extends Component {
 	);
     }
 
-    renderLinks(){
-	/* console.log("Rendering header links.");*/
-	if(this.props.authenticated) {
-	    return (
-		[
-		    <Link key={1} to={{ pathname: '/post/new'}}>
-			Write 
-		    </Link>,
-		    
-		    <Link key={2} to={{ pathname: '/logout'}}>
-			Logout
-		    </Link>
-		]
-	    );
-	    
-	} else {
-	    return (
-		[
-		]
-	    );
-	    /*
-	       <Link to={{ pathname: '/subscribe'}}>
-	       Subscribe
-	       </Link>
-	     */
-
-	    /*
-	       <LinkContainer to={{ pathname: '/signup'}}>
-	       <NavItem eventKey={3}>Sign Up</NavItem>
-	       </LinkContainer>
-	     */	    
-	}
-	
-    }
-
     
     render() {
 	return (
@@ -147,21 +114,24 @@ class Header extends Component {
 		    <div className="row">      
 			<div className="col-xs-12 col-sm-6 search">
 			    <Link className="logo" to={'/'}>
-				digital<span className="bold">mind</span>
-				<img src={LogoImage}/> 				
+				lumen<span className="bold">writes</span>
+				{/* <img src={LogoImage}/> */}
 			    </Link>
 			</div>
 			<div className="col-xs-12 col-sm-6 main-menu">
 			    <div className="menu">
-				{ this.renderLinks() }
-				{ this.renderCategories() }
 				<a onClick={this.openModal}>
 				    Subscribe
 				</a>
 				<Link to={'/about/'}>
 				    About
 				</Link>
-				
+				{ this.props.authenticated ?
+				  <Link key={2} to={{ pathname: '/logout'}}>
+				      <i className="fa fa-sign-out"></i>
+				  </Link>
+				: null }
+
 			    </div>
 			</div>
 		    </div>

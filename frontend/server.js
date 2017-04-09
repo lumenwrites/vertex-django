@@ -1,16 +1,16 @@
-/* This file will be used for server-side rendering */
-/* It doesn't do anything so far, right now all files are served with nginx. */
-import path from 'path'
-import Express from 'express'
-import React from 'react'
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-import { renderToString } from 'react-dom/server'
+var Express = require('express');
+var React = require('react');
+
+var createStore = require('redux').createStore;
+var Provider = require('react-redux').Provider;
+var renderToString = require('react-dom/server').renderToString;
+
 /* import counterServer from './reducers'*/
 /* import Server from './containers/Server'*/
 
 const server = new Express()
 const port = process.env.PORT || 3000
+
 
 function handleRender(req, res) {
     // Create a new Redux store instance
@@ -30,13 +30,37 @@ function handleRender(req, res) {
     res.send(renderFullPage(html, preloadedState))
 }
 
+function renderFullPage(html, preloadedState) {
+    return `
+    <!doctype html>
+    <html>
+      <head>
+        <title>Redux Universal Example</title>
+      </head>
+      <body>
+        <div id="root">${html}</div>
+        <script>
+          // WARNING: See the following for security issues around embedding JSON in HTML:
+          // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
+          window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
+        </script>
+        <script src="/static/bundle.js"></script>
+      </body>
+    </html>
+    `
+}
 
-// This is fired every time the server side receives a request
-server.use(handleRender)
+server.get('/',function(req,res){
+    /* Grab root component and create react app*/
+    var app = React.createFactory(require('./src/components/Main.js'));
+    /* Pass props to the app, and generate html out of it */
+    var generated = React.renderToString(app({postList:""}));
+    /* Take the html template, and insert generated html where it should be  */
+    res.render('./index.ejs',{reactOutput:generated});    
+});
 
-
-function handleRender(req, res) { /* ... */ }
-function renderFullPage(html, preloadedState) { /* ... */ }
+/* Serve all the static files I need */
+server.use(Express.static(__dirname));
 
 server.listen(port, function(){
     console.log("Server running on port " + port);

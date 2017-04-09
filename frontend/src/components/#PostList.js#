@@ -6,7 +6,6 @@ import MetaTags from 'react-meta-tags';
 import { fetchSettings, fetchPosts } from '../actions/index';
 
 import Post from './Post';
-import PostEdit from './PostEdit';
 import Pagination from './Pagination';
 
 class PostList extends Component {
@@ -110,9 +109,6 @@ class PostList extends Component {
 	return (
 	    <div>
 		{ this.renderMetaInfo() }
-		{ this.props.authenticated ?
-		  <PostEdit params={this.props.params}/>
-		: null }
 		{ this.renderPosts() }
 		<Pagination next={this.props.posts.next}
 			    prev={this.props.posts.previous} 
@@ -124,7 +120,7 @@ class PostList extends Component {
 
 
 function mapStateToProps(state) {
-    return { posts: state.posts,
+    return { posts: state.posts.all,
     	     settings: state.settings.all,
     	     authenticated: state.auth.authenticated};
 }

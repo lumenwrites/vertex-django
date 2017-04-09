@@ -21,16 +21,13 @@ class PostEdit extends Component {
     constructor(props){
 	super(props);
 	/* Set empty state to avoid errors before post is fetched */
-	this.state = { title: "",
-		       body:"",
+	this.state = { body:"",
 		       published: false,
 		       tags: "",
 		       category: ""};
 	
 	/* So that I would be able to access this component with "this"
 	   inside the functions: */
-	this.onTitleChange = this.onTitleChange.bind(this);
-	this.onBodyChange = this.onBodyChange.bind(this);	
 	this.onTagsChange = this.onTagsChange.bind(this);
 	this.onCategoryChange = this.onCategoryChange.bind(this);
 	this.onPublishClick = this.onPublishClick.bind(this);		
@@ -54,41 +51,8 @@ class PostEdit extends Component {
     }
 
 
-    componentWillReceiveProps(nextProps) {
-	/* Once the post has been fetched, add it to the state.
-	   I can't do this in componentWillMount() because I gotta wait for
-	   fetchPost() to complete, and I can't use the promise,
-	   because action creator has to return the action object, not a promise.*/
-	const { post } =  nextProps;
-	/* console.log("Received props! Body: " + post.body);*/
-	if (post) {
-	    var category = "";
-	    if (post.category) {category = post.category.slug};
-	    var tags=""
-	    /* Turn the list of tag objects into comma separated list of tag titles. */
-	    if (post.tags) {
-		tags = post.tags.map((tag) => {
-		    return tag.title;
-		}).join(", ");
-	    }
-	    this.setState({
-		body: post.body,
-		title: post.title,
-		published: post.published,		
-		tags: tags,
-		category: category
-	    });
-	}
-    }
-
     /* Every time I type into the form - update the state. */
     /* There's probably a smarter way to do this. */
-    onTitleChange(event) {
-	this.setState({ title: event.target.value });
-    };
-    onBodyChange(value) {
-	this.setState({ body: value });
-    };
     onTagsChange(event) {
 	this.setState({ tags: event.target.value });
     };
@@ -101,35 +65,11 @@ class PostEdit extends Component {
 	/* Flip published state */
 	/* this.setState({ published: !this.state.published });	*/
 
-	const { body, title, tags, category } = this.state;
+	const { body, tags, category } = this.state;
 	const published = !this.state.published;
-	const post = { title, body, published, tags, category };
+	const post = { published, tags, category };
 	this.props.updatePost(this.props.params.slug, post);
     }
-    onSubmit(event) {
-	/* Handle submit */
-	/* Stop the default event(so that submitting form wouldn't reload thep page) */
-	event.preventDefault();
-	/* Grabbing all the form data from the state */
-	const { body, title, tags, category } = this.state;
-
-	/* Creating a post object */
-	const post = { title, body, tags, category };
-	/* console.log("Sending post to API. Slug: " + this.props.params.slug);*/
-
-	if (this.props.params.slug) {
-	    /* If the router passes the slug to this component,
-	       that means I'm editing the post, and I want to update it */
-	/* Calling an action creator, sending the post to the api */
-	    this.props.updatePost(this.props.params.slug, post);
-	} else {
-	    /* If there's no this.props.params.slug, that means
-	       I am at the "/post/new", and I want to create a new post*/
-	    this.props.createPost(post);	    
-	}
-	
-    }
-
     onDelete() {
 	/* Calling an action creator that deletes the post */
 	this.props.deletePost(this.props.params.slug);
@@ -193,6 +133,9 @@ class PostEdit extends Component {
     render() {
 	/* Grabbing the post from the redux state
 	   (connected to this component at the end of this file) */
+	const { postForm } = this.props;
+	var postLength = postForm.body.length + postForm.tags.length;
+
 	const categories = this.props.categories;
 	var noCategories = false;
 	if (categories.results) {
@@ -203,68 +146,44 @@ class PostEdit extends Component {
 		noCategories = true;
 	    }
 	}
-	/* 
-	console.log("> Current state: ");
-	console.log("Title: " + this.state.title);		
-	console.log("Body: " + this.state.body);
-	console.log("Tags: " + this.state.tags);	
-	 */
 
 	return (
-	    <div>
-		<br/>
-		<form onSubmit={this.onSubmit.bind(this)}>
-		    <FormGroup>
-			{/* Title */}						
-			<FormControl className="postTitle"
-				     type="text"
-				     placeholder="Post Title"
-				     value={this.state.title}
-				     onChange={this.onTitleChange}/>
-
-			{/* Body */}
-			<SimpleMDE
-			    onChange={this.onBodyChange}
-			    value={this.state.body}
-			    options={{
-				spellChecker: false,
-				placeholder: "Write here...",
-				initialValue: this.state.body,
-				autosave: {
-				    enabled: false,
-				    delay: 1000,
-				    uniqueId: "NewPost",
-				    delay: 1000,
-				},				
-			    }}/>
-
-			{/* Categories */}
-			{ this.renderCategories() }
-			{/* Tags.
-			    If there are no categories - I'm not rendering
-			    the categories selector, so I need to make the
-			    width 100%. */}			
-			<FormControl className={"post-tags" +
-						 (noCategories ? "force-fullwidth" : "")}
-				     type="text"
-				     placeholder="tag1, tag2, tag3"
-				     value={this.state.tags}
-				     onChange={this.onTagsChange}/>
-			<div className="clearfix"></div>
-			<br/>
-
-			{ this.renderDeleteButton() } 
-
-			<div className="right">
-			    <IndexLinkContainer to={{ pathname: '/'}}>
-				<Button type="submit">Cancel</Button>
-			    </IndexLinkContainer> &nbsp;
-			    { this.renderPublishButton() }  &nbsp;
-			    <Button bsStyle="primary" type="submit">Save</Button>
-			</div>
-		    </FormGroup>
-		    <br/><br/>
-		</form>
+	    <div className="post-editor">
+		{/* Body */}
+		<SimpleMDE
+		    onChange={this.props.updatePostBody}
+		    value={this.props.postForm.body}
+		    options={{
+			spellChecker: false,
+			toolbar: false,
+			status: false,
+			placeholder: "Write here... (can use markdown)",
+			initialValue: this.props.postForm.body,
+			autosave: {
+			    enabled: false,
+			    delay: 1000,
+			    uniqueId: "NewPost",
+			    delay: 1000,
+			},				
+		    }}/>
+		{/* Tags.
+		    If there are no categories - I'm not rendering
+		    the categories selector, so I need to make the
+		    width 100%. */}			
+		<FormControl className={"post-tags " +
+		     (noCategories ? "force-fullwidth" : "")}
+			     type="text"
+			     placeholder="tag1, tag2, tag3"
+			     value={this.props.postForm.tags}
+			     onChange={(event)=>
+				 this.props.updatePostTags(event.target.value)}/>
+		<div className={"character-count form-control " +
+				 (postLength > 100 ? "red" : "")}>
+		    { postLength }
+		</div>
+		<Button className="post-button" bsStyle="primary"
+			onClick={()=>this.props.createPost(this.props.postForm)}>Post</Button>
+		<div className="clearfix"></div>
 	    </div>
 	);
     }
@@ -275,7 +194,8 @@ class PostEdit extends Component {
 
 function mapStateToProps(state) {
     return {
-	post:state.posts.post,
+	post:state.posts,
+	postForm:state.postForm,	
 	categories: state.categories.all
     };
 }

@@ -63,6 +63,7 @@ class PostCreate(CreateAPIView):
         if tag_string:
             post = add_tags(post, tag_string)
 
+        post.published = True
         post.save()
 
         # Ignore this.

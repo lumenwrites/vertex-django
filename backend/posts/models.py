@@ -24,7 +24,6 @@ def unique_slug(title):
 
     
 class Post(models.Model):
-    title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=256, default="")
     pub_date = models.DateTimeField(blank=True, null=True)
     body = models.TextField(default="", null=True, blank=True)
@@ -46,7 +45,7 @@ class Post(models.Model):
     def save(self, slug="", *args, **kwargs):
         if not self.id:
             self.pub_date = datetime.datetime.now()
-            self.slug = unique_slug(self.title)
+            self.slug = unique_slug(self.body[:30])
 
         return super(Post, self).save(*args, **kwargs)
 
