@@ -146,7 +146,7 @@ HARDCODED_HOST_META = """<?xml version='1.0' encoding='UTF-8'?>
     <hm:Host>lumenwrites.com</hm:Host>
  
     <Link rel='lrdd'
-          template=http://lumenwrites.com/.well-known/webfinger?resource={uri}'>
+          template='http://lumenwrites.com/.well-known/webfinger?resource={uri}'>
         <Title>Profile</Title>
     </Link>
 </XRD>
