@@ -10,7 +10,7 @@ ENV BACKENDDIR=/home/blog/backend
 RUN apt-get update && apt-get install -y git emacs curl iputils-ping
 
 # Install python/django dependencies 	        	    
-RUN apt-get install -y python3-dev python3-pip build-essential supervisor nginx libpq-dev uwsgi-plugin-python3 libcurl4-openssl-dev supervisor
+RUN apt-get install -y --fix-missing python3-dev python3-pip build-essential supervisor nginx libpq-dev uwsgi-plugin-python3 libcurl4-openssl-dev supervisor
 RUN pip3 install -U pip setuptools
 RUN pip3 install uwsgi
 
