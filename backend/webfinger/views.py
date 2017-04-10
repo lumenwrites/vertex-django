@@ -72,22 +72,63 @@ HARDCODED_XRD_RESPONSE = """
 LUMEN_JSON = {
     "subject": "acct:lumen@lumenwrites.com",
     "aliases": [
-        "http://lumenwrites.com",
+        "https://quitter.no/user/10278",
+        "https://quitter.no/aeio",
+        "https://quitter.no/index.php/user/10278",
+        "https://quitter.no/index.php/aeio"
     ],
     "links": [
         {
             "rel": "http://webfinger.net/rel/profile-page",
             "type": "text/html",
-            "href": "http://lumenwrites.com"
+            "href": "https://quitter.no/aeio"
+        },
+        {
+            "rel": "http://gmpg.org/xfn/11",
+            "type": "text/html",
+            "href": "https://quitter.no/aeio"
+        },
+        {
+            "rel": "describedby",
+            "type": "application/rdf+xml",
+            "href": "https://quitter.no/aeio/foaf"
+        },
+        {
+            "rel": "http://apinamespace.org/atom",
+            "type": "application/atomsvc+xml",
+            "href": "https://quitter.no/api/statusnet/app/service/aeio.xml"
+        },
+        {
+            "rel": "http://apinamespace.org/twitter",
+            "href": "https://quitter.no/api/"
+        },
+        {
+            "rel": "http://specs.openid.net/auth/2.0/provider",
+            "href": "https://quitter.no/aeio"
         },
         {
             "rel": "http://schemas.google.com/g/2010#updates-from",
             "type": "application/atom+xml",
-            "href": "http://lumenwrites.com/feed/posts.atom"
+            "href": "https://quitter.no/api/statuses/user_timeline/10278.atom"
         },
+        {
+            "rel": "magic-public-key",
+            "href": "data:application/magic-public-key,RSA.wUuPdNtT1aBBfBzMLzXojctexLjm9_vCJSXnRAuI8bKqiD0dNLHBW3D4j58m58lrB754B29hAI5opjoM2XKm9ETlCZk0MDiqFMDKfqaZsCDEo7I8hXvh0hffTq8g30nIsCxV9GWv4lbeWTlAj0XvLDqzks0mNX9RIX3nGhXKk3k=.AQAB"
+        },
+        {
+            "rel": "salmon",
+            "href": "https://quitter.no/main/salmon/user/10278"
+        },
+        {
+            "rel": "http://salmon-protocol.org/ns/salmon-replies",
+            "href": "https://quitter.no/main/salmon/user/10278"
+        },
+        {
+            "rel": "http://salmon-protocol.org/ns/salmon-mention",
+            "href": "https://quitter.no/main/salmon/user/10278"
+        }
     ]
 }
-
 def endpoint(request, uri=""):
     # acct = Acct(uri)
     # response = XRDResponse(subject=acct)
@@ -111,13 +152,23 @@ template=’https://quitter.no/.well-known/webfinger?resource=acct:{uri}'>
 
 #  template=’http://lumenwrites.com/.well-known/webfinger?resource=acct:{uri}'>
 HOST_META_JSON = {
-"links": [
-    {
-        "rel": "lrdd",
-        "type": "application/jrd+json",
-        "template": "https://hackertribe.io/.well-known/webfinger?resource=acct:rayalez@hackertribe.io"
-    },
-]
+    "links": [
+        {
+            "rel": "lrdd",
+            "type": "application/jrd+json",
+            "template": "http://lumenwrites.com/.well-known/webfinger?resource={uri}"
+        },
+        {
+            "rel": "lrdd",
+            "type": "application/json",
+            "template": "http://lumenwrites.com/.well-known/webfinger?resource={uri}"
+        },
+        {
+            "rel": "lrdd",
+            "type": "application/xrd+xml",
+            "template": "http://lumenwrites.com/.well-known/webfinger?resource={uri}"
+        }
+    ]
 }
 
 def host_meta(request):
