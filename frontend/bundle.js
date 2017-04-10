@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2fed2d7467c2a7c28d95"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "244c4a89fff9e2ad6384"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -105126,6 +105126,8 @@
 
 	var _redux = __webpack_require__(162);
 
+	var _reduxForm = __webpack_require__(636);
+
 	var _posts = __webpack_require__(689);
 
 	var _posts2 = _interopRequireDefault(_posts);
@@ -105153,6 +105155,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var rootReducer = (0, _redux.combineReducers)({
+	    form: _reduxForm.reducer,
 	    posts: _posts2.default,
 	    postForm: _postForm2.default,
 	    categories: _reducer_categories2.default,
