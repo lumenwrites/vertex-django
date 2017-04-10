@@ -6,11 +6,8 @@ ENV HOMEDIR=/home
 ENV PROJECTDIR=/home/blog
 ENV BACKENDDIR=/home/blog/backend
 
-# Install basic apps
-RUN apt-get update && apt-get install -y git emacs curl iputils-ping
-
-# Install python/django dependencies 	        	    
-RUN apt-get install -y --fix-missing python3-dev python3-pip build-essential supervisor nginx libpq-dev uwsgi-plugin-python3 supervisor # libcurl4-openssl-dev
+# Install basic apps and python/django dependencies 	        	    
+RUN apt-get update && apt-get install --fix-missing -y git emacs curl iputils-ping python3-dev python3-pip build-essential supervisor nginx libpq-dev libcurl4-openssl-dev uwsgi-plugin-python3 supervisor 
 RUN pip3 install -U pip setuptools
 RUN pip3 install uwsgi
 
