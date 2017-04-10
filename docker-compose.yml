@@ -26,6 +26,7 @@ services:
     working_dir: /home/blog/backend
     # Run this command on start up, to launch a supervisor
     command: supervisord -n
+    dns: 8.8.8.8    
     # Connect it to the postgres container
     depends_on:
       - postgres
