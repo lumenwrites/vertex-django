@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "db567bfe2f66ba6d3894"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9357fd13a985f3fff319"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -47916,7 +47916,7 @@
 	var CREATE_SUBSCRIBER = exports.CREATE_SUBSCRIBER = 'CREATE_SUBSCRIBER';
 
 	var host = window.location.host.split(':')[0];
-	var ROOT_URL = exports.ROOT_URL = 'http://' + host + ':8000/api/v1';
+	var ROOT_URL = exports.ROOT_URL = 'http://' + host + '/api/v1';
 
 	function updatePostBody(value) {
 				return {
@@ -104874,7 +104874,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var host = window.location.host.split(':')[0];
-	var ROOT_URL = exports.ROOT_URL = 'http://api.' + host + '/api/v1';
+	var ROOT_URL = exports.ROOT_URL = 'http://' + host + '/api/v1';
 
 	function signinUser(_ref) {
 				var username = _ref.username,
