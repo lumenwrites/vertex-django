@@ -93,7 +93,7 @@ def endpoint(request, uri=""):
     # response = XRDResponse(subject=acct)
     # handler(request, acct, response._xrd)
     response = LUMEN_JSON
-    return JsonResponse
+    return JsonResponse(response)
 
 
 HARDCODED_HOST_META = """
