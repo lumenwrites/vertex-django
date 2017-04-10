@@ -156,17 +156,17 @@ HOST_META_JSON = {
         {
             "rel": "lrdd",
             "type": "application/jrd+json",
-            "template": "http://lumenwrites.com/.well-known/webfinger?resource={uri}"
+            "template": "http://lumenwrites.com/.well-known/webfinger?resource=acct:{uri}"
         },
         {
             "rel": "lrdd",
             "type": "application/json",
-            "template": "http://lumenwrites.com/.well-known/webfinger?resource={uri}"
+            "template": "http://lumenwrites.com/.well-known/webfinger?resource=acct:{uri}"
         },
         {
             "rel": "lrdd",
             "type": "application/xrd+xml",
-            "template": "http://lumenwrites.com/.well-known/webfinger?resource={uri}"
+            "template": "http://lumenwrites.com/.well-known/webfinger?resource=acct:{uri}"
         }
     ]
 }
