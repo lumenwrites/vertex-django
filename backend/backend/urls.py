@@ -24,14 +24,17 @@ from posts import urls as posts_urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    # API
     url(r'^rest-api-auth/', include('rest_framework.urls',
                                     namespace='rest_framework')),
     url(r'^api/v1/auth/', views.obtain_auth_token),
-
     url(r'^api/v1/', include('posts.urls', namespace='posts')),
     url(r'^api/v1/', include('categories.urls', namespace='categories')),
     url(r'^api/v1/', include('core.urls', namespace='core')),
     url(r'^api/v1/', include('profiles.urls', namespace='core')),
+
+    # WebFinger
+    url(r'^.well-known/', include('webfinger.urls')),
 
     url(r'', include(posts_urls)),    
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

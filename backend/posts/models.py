@@ -40,7 +40,7 @@ class Post(models.Model):
     score = models.IntegerField(default=0)
     
     def __str__(self):
-        return self.title
+        return self.body[:100]
 
     def save(self, slug="", *args, **kwargs):
         if not self.id:

@@ -50,14 +50,15 @@ services:
   # This container sits in front of the others,
   # I need it because both frontend and backend containers
   # can't connect to the port 80 at the same time
-  nginx_proxy:
-    build: ./nginx_proxy
-    container_name: nginx_proxy
-    # See the file nginx_proxy.conf
-    # It uses these links to connect you to the two containers
-    links:
-      - backend
-      - frontend        
-    ports:
-      - '80:80'
+  # Comment it out to manually customize nginx config on server.
+  # nginx_proxy:
+  #   build: ./nginx_proxy
+  #   container_name: nginx_proxy
+  #   # See the file nginx_proxy.conf
+  #   # It uses these links to connect you to the two containers
+  #   links:
+  #     - backend
+  #     - frontend        
+  #   ports:
+  #     - '80:80'
       

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',    
     'corsheaders',
 
+    'webfinger',
     'core',
     'posts',
     'categories',
@@ -158,3 +159,4 @@ CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ORIGIN_WHITELIST = [
 #     '*',
 # ]
+

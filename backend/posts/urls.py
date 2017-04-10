@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'tag/(?P<slug>[^\.]+)/$', TagRetrieveUpdateDestroy.as_view(), name='tag_detail'),
 
     # Atom Feed
-    url(r'^feed/rss$', MainFeed()),
+    url(r'^feed/posts.atom$', MainFeed()),
     # Activities
     url(r'^feed/posts/new$', posts_stream),
     

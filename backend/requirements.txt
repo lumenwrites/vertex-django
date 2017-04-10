@@ -3,6 +3,10 @@ djangorestframework
 psycopg2
 django-cors-headers
 
+django-webfinger
+xrd
+wellknown
+				
 markdown
 html2text
 pycurl

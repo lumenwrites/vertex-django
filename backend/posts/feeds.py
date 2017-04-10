@@ -9,7 +9,7 @@ class MainFeed(Feed):
     try:
         settings = Settings.objects.all().first()
 
-        base_url = "http://digitalmind.io"
+        base_url = "http://lumenwrites.com"
     
         title = settings.title + " latest posts"
         link = base_url
@@ -19,8 +19,8 @@ class MainFeed(Feed):
         def items(self):
             return Post.objects.filter(published=True).order_by('-pub_date')[:25]
     
-        def item_title(self, item):
-            return item.title
+        # def item_title(self, item):
+        #     return item.title
     
         def item_link(self, item):
             return self.base_url + "/post/" + item.slug
