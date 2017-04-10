@@ -102,11 +102,14 @@ HARDCODED_HOST_META = """
  xmlns:hm=’http://host-meta.net/xrd/1.0'>
 <hm:Host>lumenwrites.com</hm:Host>
 <Link rel=’lrdd’
- template=’http://lumenwrites.com/.well-known/webfinger?resource=acct:{uri}'>
+ template=’https://quitter.no/.well-known/webfinger?resource=acct:{uri}'>
+
  <Title>Resource Descriptor</Title>
  </Link>
 </XRD>
 """
+
+#  template=’http://lumenwrites.com/.well-known/webfinger?resource=acct:{uri}'>
 HOST_META_JSON = {
 "links": [
     {
