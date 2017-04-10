@@ -60,8 +60,7 @@ def handler(request, acct, xrd):
     ))
 
 
-HARDCODED_XRD_RESPONSE = """
-<?xml version='1.0' encoding='UTF-8'?>
+HARDCODED_XRD_RESPONSE = """<?xml version='1.0' encoding='UTF-8'?>
 <XRD xmlns='http://docs.oasis-open.org/ns/xri/xrd-1.0'>
  
     <Subject>acct:lumen@lumenwrites.com</Subject>
@@ -140,8 +139,7 @@ def endpoint(request, uri=""):
     return HttpResponse(response)
 
 
-HARDCODED_HOST_META = """
-<?xml version='1.0' encoding='UTF-8'?>
+HARDCODED_HOST_META = """<?xml version='1.0' encoding='UTF-8'?>
 <XRD xmlns='http://docs.oasis-open.org/ns/xri/xrd-1.0'
      xmlns:hm='http://host-meta.net/xrd/1.0'>
  

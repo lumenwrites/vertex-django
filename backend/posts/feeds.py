@@ -37,8 +37,7 @@ class MainFeed(Feed):
 
 
 
-HARDCODED_ATOM = '''
-<?xml version="1.0"?>
+HARDCODED_ATOM = '''<?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:activity="http://activitystrea.ms/spec/1.0/" xmlns:poco="http://portablecontacts.net/spec/1.0" xmlns:media="http://purl.org/syndication/atommedia" xmlns:ostatus="http://ostatus.org/schema/1.0" xmlns:mastodon="http://mastodon.social/schema/1.0">
   <id>http://lumenwrites.com/feed/posts.atom</id>
   <title>lumenwrites</title>
