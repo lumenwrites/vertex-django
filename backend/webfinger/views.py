@@ -92,8 +92,8 @@ def endpoint(request, uri=""):
     # acct = Acct(uri)
     # response = XRDResponse(subject=acct)
     # handler(request, acct, response._xrd)
-    response = HARDCODED_XRD_RESPONSE
-    return HttpResponse(response)
+    response = LUMEN_JSON
+    return JsonResponse
 
 
 HARDCODED_HOST_META = """
