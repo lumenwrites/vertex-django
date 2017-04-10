@@ -115,7 +115,7 @@ HOST_META_JSON = {
     {
         "rel": "lrdd",
         "type": "application/jrd+json",
-        "template": "https://quitter.no/.well-known/webfinger?resource=acct:aeio@quitter.no"
+        "template": "https://hackertribe.io/.well-known/webfinger?resource=acct:rayalez@hackertribe.io"
     },
 ]
 }
