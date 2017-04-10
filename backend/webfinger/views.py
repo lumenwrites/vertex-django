@@ -115,7 +115,7 @@ HOST_META_JSON = {
     {
         "rel": "lrdd",
         "type": "application/jrd+json",
-        "template": "https://quitter.no/.well-known/webfinger?resource=acct:{uri}"
+        "template": "https://quitter.no/.well-known/webfinger?resource=acct:aeio@quitter.no"
     },
 ]
 }
