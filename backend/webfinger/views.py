@@ -61,12 +61,15 @@ def handler(request, acct, xrd):
 
 
 HARDCODED_XRD_RESPONSE = """
-<?xml version=’1.0' encoding=’UTF-8'?>
-<XRD xmlns=’http://docs.oasis-open.org/ns/xri/xrd-1.0'>
- <Subject>acct:lumen@lumenwrites.com</Subject>
- <Link rel=’http://webfinger.net/rel/profile-page'
- type=’text/html’
- href=’http://lumenwrites.com/' />
+<?xml version='1.0' encoding='UTF-8'?>
+<XRD xmlns='http://docs.oasis-open.org/ns/xri/xrd-1.0'>
+ 
+    <Subject>acct:lumen@lumenwrites.com</Subject>
+    <Alias>http://lumenwrites.com/</Alias>
+ 
+    <Link rel="http://schemas.google.com/g/2010#updates-from"
+          type="application/atom+xml"
+          href="http://lumenwrites.com/feed/posts.atom" />
 </XRD>
 """
 LUMEN_JSON = {
@@ -133,20 +136,21 @@ def endpoint(request, uri=""):
     # acct = Acct(uri)
     # response = XRDResponse(subject=acct)
     # handler(request, acct, response._xrd)
-    response = LUMEN_JSON
-    return JsonResponse(response)
+    response = HARDCODED_XRD_RESPONSE
+    return HttpResponse(response)
 
 
 HARDCODED_HOST_META = """
-<?xml version=’1.0' encoding=’UTF-8'?>
-<XRD xmlns=’http://docs.oasis-open.org/ns/xri/xrd-1.0'
- xmlns:hm=’http://host-meta.net/xrd/1.0'>
-<hm:Host>lumenwrites.com</hm:Host>
-<Link rel=’lrdd’
-template=’https://quitter.no/.well-known/webfinger?resource=acct:{uri}'>
-
- <Title>Resource Descriptor</Title>
- </Link>
+<?xml version='1.0' encoding='UTF-8'?>
+<XRD xmlns='http://docs.oasis-open.org/ns/xri/xrd-1.0'
+     xmlns:hm='http://host-meta.net/xrd/1.0'>
+ 
+    <hm:Host>lumenwrites.com</hm:Host>
+ 
+    <Link rel='lrdd'
+          template=http://lumenwrites.com/.well-known/webfinger?resource={uri}'>
+        <Title>Profile</Title>
+    </Link>
 </XRD>
 """
 
@@ -173,7 +177,7 @@ HOST_META_JSON = {
 
 def host_meta(request):
     response = HARDCODED_HOST_META
-    response = HOST_META_JSON
-    
-    return JsonResponse(response)
+    return HttpResponse(response)
+    # response = HOST_META_JSON
+    # return JsonResponse(response)
 
