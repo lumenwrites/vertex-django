@@ -3,7 +3,7 @@ from django.conf.urls import url
 from .views import PostList, PostCreate, PostRetrieveUpdateDestroy
 from .views import TagListCreate, TagRetrieveUpdateDestroy
 
-from .feeds import MainFeed
+from .feeds import MainFeed, atom_feed
 from .activities import posts_stream
 
 urlpatterns = [
@@ -25,7 +25,8 @@ urlpatterns = [
     url(r'tag/(?P<slug>[^\.]+)/$', TagRetrieveUpdateDestroy.as_view(), name='tag_detail'),
 
     # Atom Feed
-    url(r'^feed/posts.atom$', MainFeed()),
+    # url(r'^feed/posts.atom$', MainFeed()),
+    url(r'^feed/posts.atom$', atom_feed),    
     # Activities
     url(r'^feed/posts/new$', posts_stream),
     
