@@ -7,10 +7,13 @@ export default function(state=INITIAL_STATE, action) {
 	case 'CREATE_POST':
 	    var posts = state.results;
 	    var post = action.payload;
-	    post.tags = [{
-		title: post.tags,
-		slug: post.tags
-	    }];
+	    var tags = post.tags.split(',');
+	    post.tags = tags.map((t)=>{
+		return {
+		    title: t,
+		    slug: t
+		};
+	    })
 	    console.log("Add created post to the stream " + JSON.stringify(post));
 	    posts.unshift(post);
 	    return {...state, results:posts};

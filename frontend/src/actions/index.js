@@ -13,7 +13,7 @@ export const CREATE_SUBSCRIBER = 'CREATE_SUBSCRIBER';
 const host = window.location.host.split(':')[0];
 export var ROOT_URL = 'https://' + host + '/api/v1';
 
-const DEBUG = false;
+const DEBUG = true;
 if (DEBUG) {
     ROOT_URL = 'http://localhost/api/v1';    
 }
