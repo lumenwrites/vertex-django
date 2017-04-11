@@ -316,7 +316,7 @@ p {
 }
 
 .force-fullwidth {
-    width: calc(100% - 60px)!important;
+    width: calc(100% - 60px - 60px)!important;
 }
 
 span.avoidwrap {
