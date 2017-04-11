@@ -3,8 +3,13 @@ import { browserHistory } from 'react-router';
 import { AUTH_USER, UNAUTH_USER, AUTH_ERROR, FETCH_MESSAGE } from './types';
 
 const host = window.location.host.split(':')[0];
-export const ROOT_URL = 'https://' + host + '/api/v1';
 
+export var ROOT_URL = 'https://' + host + '/api/v1';
+
+const DEBUG = true;
+if (DEBUG) {
+    ROOT_URL = 'http://localhost/api/v1';    
+}
 
 export function signinUser({username, password}) {
     return function(dispatch) {

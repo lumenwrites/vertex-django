@@ -11,7 +11,12 @@ export const FETCH_SETTINGS = 'FETCH_SETTINGS';
 export const CREATE_SUBSCRIBER = 'CREATE_SUBSCRIBER';
 
 const host = window.location.host.split(':')[0];
-export const ROOT_URL = 'https://' + host + '/api/v1';
+export var ROOT_URL = 'https://' + host + '/api/v1';
+
+const DEBUG = true;
+if (DEBUG) {
+    ROOT_URL = 'http://localhost/api/v1';    
+}
 
 
 export function updatePostBody(value) {

@@ -14,7 +14,32 @@ from .serializers import PostSerializer, TagSerializer
 from .utils import add_tags
 from .activities import submit_post
 
+import os
+from mastodon import Mastodon
 
+
+def mastodon_login():
+    instance_url = "https://lumenwrites.com"
+    # Create app if doesn't exist
+    if not os.path.isfile("clientcred.txt"):
+        print("Creating app")
+        mastodon = Mastodon.create_app(
+            'LumenWrites',
+            to_file = 'clientcred.txt',
+            api_base_url=instance_url
+        )
+    
+    # Fetch access token if I didn't already
+    if not os.path.isfile("usercred.txt"):
+        print("Logging in")
+        mastodon = Mastodon(
+            client_id = 'clientcred.txt',
+            api_base_url=instance_url        
+        )
+        email = os.environ["MASTODON_EMAIL"]
+        password = os.environ["MASTODON_PASSWORD"]
+        mastodon.log_in(email, password, to_file = 'usercred.txt')
+        
 class PostList(ListAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -68,11 +93,28 @@ class PostCreate(CreateAPIView):
 
         # Ignore this.
         # Experimenting with submitting posts using ActivityPub.
-        try:
-            submit_post(post)
-        except:
-            pass
+        # try:
+        #     submit_post(post)
+        # except:
+        #     pass
 
+        # Mastodon
+        mastodon_login()
+        # Login using generated auth
+        mastodon = Mastodon(
+            client_id = 'clientcred.txt',
+            access_token = 'usercred.txt',
+            api_base_url="https://lumenwrites.com"    
+        )
+        hashtags = ""
+        if tag_string:
+            tags = tag_string.split(",")
+            for tag in tags:
+                tag = tag.strip()
+                hashtags += "#"+tag+" "
+        toot = post.body + "\n" + hashtags
+        mastodon.toot(toot)        
+        
 
 # @permission_classes((IsAuthenticated, ))
 # @permission_classes((AllowAny, ))

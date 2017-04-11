@@ -6,7 +6,9 @@ django-cors-headers
 django-webfinger
 xrd
 wellknown
-				
+
+Mastodon.py
+								
 markdown
 html2text
 pycurl
