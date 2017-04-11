@@ -60,15 +60,23 @@ def handler(request, acct, xrd):
     ))
 
 
-HARDCODED_XRD_RESPONSE = """<?xml version='1.0' encoding='UTF-8'?>
+LUMEN_XRD = """<?xml version='1.0' encoding='UTF-8'?>
 <XRD xmlns='http://docs.oasis-open.org/ns/xri/xrd-1.0'>
  
     <Subject>acct:lumen@lumenwrites.com</Subject>
-    <Alias>http://lumenwrites.com/</Alias>
+    <Alias>https://lumenwrites.com/</Alias>
  
     <Link rel="http://schemas.google.com/g/2010#updates-from"
           type="application/atom+xml"
-          href="http://lumenwrites.com/feed/posts.atom" />
+          href="https://lumenwrites.com/@lumen.atom" />
+    <Link rel="http://activitystrea.ms/spec/1.0"
+          type="application/atom+xml"
+          href="https://lumenwrites.com/@lumen.atom" />
+
+    <Link rel="http://webfinger.net/rel/profile-page"
+          type="application/atom+xml"
+          href="https://lumenwrites.com/@lumen" />
+
 </XRD>
 """
 LUMEN_JSON = {
@@ -111,10 +119,10 @@ def endpoint(request, uri=""):
     # acct = Acct(uri)
     # response = XRDResponse(subject=acct)
     # handler(request, acct, response._xrd)
-    # response = HARDCODED_XRD_RESPONSE
-    # return HttpResponse(response)
-    response = LUMEN_JSON
-    return JsonResponse(response)
+    response = LUMEN_XRD
+    return HttpResponse(response)
+    # response = LUMEN_JSON
+    # return JsonResponse(response)
 
 
 HARDCODED_HOST_META = """<?xml version='1.0' encoding='UTF-8'?>
@@ -124,7 +132,7 @@ HARDCODED_HOST_META = """<?xml version='1.0' encoding='UTF-8'?>
     <hm:Host>lumenwrites.com</hm:Host>
  
     <Link rel='lrdd'
-          template='http://lumenwrites.com/.well-known/webfinger?resource={uri}'>
+          template='https://lumenwrites.com/.well-known/webfinger?resource={uri}'>
         <Title>Profile</Title>
     </Link>
 </XRD>
@@ -152,8 +160,8 @@ HOST_META_JSON = {
 }
 
 def host_meta(request):
-    # response = HARDCODED_HOST_META
-    # return HttpResponse(response)
-    response = HOST_META_JSON
-    return JsonResponse(response)
+    response = HARDCODED_HOST_META
+    return HttpResponse(response)
+    # response = HOST_META_JSON
+    # return JsonResponse(response)
 
