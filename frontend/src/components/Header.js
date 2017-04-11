@@ -114,7 +114,7 @@ class Header extends Component {
 		    <div className="row">      
 			<div className="col-xs-12 col-sm-6 search">
 			    <Link className="logo" to={'/'}>
-				{/*<img src={LogoImage}/>*/}
+				<img src={LogoImage}/>
 				lumen<span className="bold">writes</span>
 			    </Link>
 			</div>
