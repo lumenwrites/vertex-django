@@ -135,8 +135,10 @@ def endpoint(request, uri=""):
     # acct = Acct(uri)
     # response = XRDResponse(subject=acct)
     # handler(request, acct, response._xrd)
-    response = HARDCODED_XRD_RESPONSE
-    return HttpResponse(response)
+    # response = HARDCODED_XRD_RESPONSE
+    # return HttpResponse(response)
+    response = LUMEN_JSON
+    return JsonResponse(response)
 
 
 HARDCODED_HOST_META = """<?xml version='1.0' encoding='UTF-8'?>
@@ -174,8 +176,8 @@ HOST_META_JSON = {
 }
 
 def host_meta(request):
-    response = HARDCODED_HOST_META
-    return HttpResponse(response)
-    # response = HOST_META_JSON
-    # return JsonResponse(response)
+    # response = HARDCODED_HOST_META
+    # return HttpResponse(response)
+    response = HOST_META_JSON
+    return JsonResponse(response)
 

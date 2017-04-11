@@ -11,7 +11,7 @@ import { subscribedClose } from '../actions/index';
 import { Button, Navbar, Nav, NavItem, Modal } from 'react-bootstrap';
 import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap';
 
-import LogoImage from '../../img/digitalmind-logo.png'
+import LogoImage from '../../img/screaming-sun.png'
 import SubscribeForm from './SubscribeForm';
 
 import FontAwesome from 'react-fontawesome';
@@ -114,8 +114,8 @@ class Header extends Component {
 		    <div className="row">      
 			<div className="col-xs-12 col-sm-6 search">
 			    <Link className="logo" to={'/'}>
+				{/*<img src={LogoImage}/>*/}
 				lumen<span className="bold">writes</span>
-				{/* <img src={LogoImage}/> */}
 			    </Link>
 			</div>
 			<div className="col-xs-12 col-sm-6 main-menu">
