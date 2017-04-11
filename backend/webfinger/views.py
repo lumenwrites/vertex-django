@@ -86,6 +86,11 @@ LUMEN_JSON = {
             "href": "https://quitter.no/aeio"
         },
         {
+            "rel": "http://activitystrea.ms/spec/1.0",
+            "type": "application/atom+xml",
+            "href": "https://quitter.no/api/statuses/user_timeline/10278.atom"
+        },
+        {
             "rel": "http://gmpg.org/xfn/11",
             "type": "text/html",
             "href": "https://quitter.no/aeio"
